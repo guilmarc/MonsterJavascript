@@ -30,16 +30,83 @@ function part20() {
     console.log( number % 2 === 0 ? 'Even' : 'Odd');
 }
 
+function part31(){
+    recursive(0);
+}
 
-function part24(){
+function recursive( value ){
+    if (value < 25)
+    console.log(recursive(value + 1));
+    return value;
+}
 
-    let value = 2;
+function part32() {
 
-    switch(value){
-        case 1:
-        case 3-2:
+    (function (name) {
+        console.log("My name is " + name);
+    })("Marco");
+}
 
+function part33(){
+    const arrowFunction = (x) => x * 5;
 
-    }
+    console.log( arrowFunction(5));
 
 }
+
+
+function part34() {
+    var person = {};
+    person.firstName = "Marco";
+    person.lastName = "Guilmette";
+
+    console.table(person);
+
+    var car = {
+        year : 2013,
+        color: "Blue",
+        wheels: ["OK", "OK", "FLAT", "OK"],
+        model: "Corvette",
+        manufacturer: "Chevrolet",
+        old: function(){return new Date().getFullYear() - this.year },
+        old2(){return new Date().getFullYear() - this.year}
+    }
+
+    console.table( car );
+    console.log( car.old());
+    console.log( car.old2());
+}
+
+
+function part38(){
+    const theList = ["Laurence", "Svekis", true, 35 ,null, undefined, {test: "one", score: 55}, ["one", "two"]];
+    console.log(theList[6].score);
+    console.log(theList[7][1]);
+}
+
+
+function part39(){
+    const theList = ["Laurence", "Svekis", true, 35 ,null, undefined, {test: "one", score: 55}, ["one", "two"]];
+    theList.shift();
+    theList.shift();
+    theList.shift();
+    theList.unshift( "make me first" );
+    console.log(theList);
+}
+
+
+function part41(){
+    const array = [0, 2, 4, 6, 7, 9];
+    array2 = array.filter( (x) =>{ return !(x % 2) });
+    console.table(array2);
+}
+
+part45();
+function part45() {
+    const array = [4,435,7653,6543,6543,76542];
+    let mapArray = array.map( function (x, index) {
+       return x - 1000;
+    });
+    console.log( mapArray );
+}
+
