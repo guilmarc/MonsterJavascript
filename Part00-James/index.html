@@ -2,7 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-        <script src="jquery.js"></script>
+       <script src="jquery.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
     </head>
 
@@ -17,11 +17,11 @@
 
             <div class="form-row mt-4"> 
                 <div class="form-group col">
-                    <input id="nameInput" class="form-control" placeholder="Nom" required>
+                    <input id="nameInput" class="form-control" placeholder="Nom">
                 </div>
                 
                 <div class="col-auto">
-                        <select id="birthdaySelect" class="form-control"></select>
+                        <select id="birthYearSelect" class="form-control"></select>
                 </div>     
                 <div class="col-auto pl-3">
                     <button id="addButton" class="btn btn-success" onclick="addPerson()">Ajouter</button>
@@ -37,7 +37,7 @@
                     </tr>
                 </thead>
                    
-                <tbody>
+                <tbody id="personTableBody">
                     <tr>
                         <td>Demo Nom</td>
                         <td>50</td>
