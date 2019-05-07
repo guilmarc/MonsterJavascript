@@ -28,20 +28,20 @@ function init(){
 
     nameInput.classList.remove("is-invalid");
     nameInput.value = "";
-    birthYearSelect.selectedIndex = 20;;
+    birthYearSelect.selectedIndex = 20;
 
 };
 init();
 
 function updateRow(index){
     if(isEditing) {
-        document.getElementById("nameElement" + index).style.visibility = "hidden";
-        document.getElementById("nameElementUpdate" + index).style.visibility = "visible";
+        document.getElementById("nameElement" + index).style.display = "none";
+        document.getElementById("nameElementUpdate" + index).style.display = "initial";
         document.getElementById("updateButton" + index).innerText = "Confirmer";
         document.getElementById("deleteButton" + index).innerText = "Annuler";
     } else {
-        document.getElementById("nameElement" + index).style.visibility = "visible";
-        document.getElementById("nameElementUpdate" + index).style.visibility = "hidden";
+        document.getElementById("nameElement" + index).style.display = "initial";
+        document.getElementById("nameElementUpdate" + index).style.display = "none";
         document.getElementById("updateButton" + index).innerText = "Modifier";
         document.getElementById("deleteButton" + index).innerText = "Supprimer";
     }
@@ -76,13 +76,13 @@ function addPerson(){
         let nameElementUpdate = document.createElement("Input");
         nameElementUpdate.id = "nameElementUpdate" + index;
         nameElementUpdate.value = newPerson.name;
-        nameElementUpdate.style.visibility = "hidden";
         nameElementSection.appendChild( nameElementUpdate );
 
         newElement.appendChild( nameElementSection );
 
         let ageElement = document.createElement("td");
         ageElement.innerText = newPerson.age();
+        ageElement.style.color = newPerson.age() >= 50 ? "red" : "green";
         newElement.appendChild( ageElement );
 
         let buttonSection = document.createElement("td");
@@ -131,6 +131,8 @@ function addPerson(){
         newElement.appendChild(buttonSection);
 
         personTableBody.appendChild(newElement);
+
+        updateRow(index);
 
         index++;
 
