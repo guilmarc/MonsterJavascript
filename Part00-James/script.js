@@ -1,7 +1,7 @@
 // Remplir le dropdown des années de naissance
 ///////////////////////////////////////////////
 
-var currentYear = new Date().getFullYear();
+let currentYear = new Date().getFullYear();
 
 for(let i = currentYear; i >= (currentYear - 100); i--) {
     var option = document.createElement("option");
@@ -14,15 +14,15 @@ for(let i = currentYear; i >= (currentYear - 100); i--) {
 
 ///////////////////////////////////////////////
 
-var persons = [];
+let persons = [];
 
-var addButton = document.getElementById("addButton");
-var nameInput = document.getElementById("nameInput");
-var birthYearSelect = document.getElementById("birthYearSelect");
-var personTableBody = document.getElementById("personTableBody");
+let addButton = document.getElementById("addButton");
+let nameInput = document.getElementById("nameInput");
+let birthYearSelect = document.getElementById("birthYearSelect");
+let personTableBody = document.getElementById("personTableBody");
 
-var isEditing = false;
-var index = 0;
+let isEditing = false;
+let index = 0;
 
 function init(){
 
