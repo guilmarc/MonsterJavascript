@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <script src="jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+       <div class="container">
+
+            <div class="row">
+                <div class="col">
+                    <h1>Formatif - Examen final</h1>
+                </div>
+            </div>
+
+            <div class="form-row mt-4"> 
+                <div class="form-group col">
+                    <input id="nameInput" class="form-control" placeholder="Nom" required>
+                </div>
+                
+                <div class="col-auto">
+                        <select id="birthdaySelect" class="form-control"></select>
+                </div>     
+                <div class="col-auto pl-3">
+                    <button id="addButton" class="btn btn-success" onclick="addPerson()">Ajouter</button>
+                </div>            
+            </div>
+ 
+            <table class="table table-striped mt-2">
+                <thead>
+                    <tr>
+                        <th scope="col" class="">Nom</th>
+                        <th scope="col" style="width: 125px;">Age</th>
+                        <th scope="col" style="width: 216px;">Actions</th>
+                    </tr>
+                </thead>
+                   
+                <tbody>
+                    <tr>
+                        <td>Demo Nom</td>
+                        <td>50</td>
+                        <td><button class="btn btn-primary">Modifier</button> <button class="btn btn-outline-danger">Supprimer</button> </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+       <script src="script.js"></script>
+    </body>
+</html> 

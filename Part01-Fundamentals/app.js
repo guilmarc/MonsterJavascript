@@ -97,7 +97,7 @@ function part39(){
 
 function part41(){
     const array = [0, 2, 4, 6, 7, 9];
-    array2 = array.filter( (x) =>{ return !(x % 2) });
+    array2 = array.filter( (x) => { return !(x % 2) });
     console.table(array2);
 }
 
