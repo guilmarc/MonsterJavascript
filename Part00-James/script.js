@@ -21,6 +21,8 @@ var nameInput = document.getElementById("nameInput");
 var birthYearSelect = document.getElementById("birthYearSelect");
 var personTableBody = document.getElementById("personTableBody");
 
+var isEditing = false;
+var index = 0;
 
 function init(){
 
@@ -30,6 +32,20 @@ function init(){
 
 };
 init();
+
+function updateRow(index){
+    if(isEditing) {
+        document.getElementById("nameElement" + index).style.visibility = "hidden";
+        document.getElementById("nameElementUpdate" + index).style.visibility = "visible";
+        document.getElementById("updateButton" + index).innerText = "Confirmer";
+        document.getElementById("deleteButton" + index).innerText = "Annuler";
+    } else {
+        document.getElementById("nameElement" + index).style.visibility = "visible";
+        document.getElementById("nameElementUpdate" + index).style.visibility = "hidden";
+        document.getElementById("updateButton" + index).innerText = "Modifier";
+        document.getElementById("deleteButton" + index).innerText = "Supprimer";
+    }
+}
 
 function addPerson(){
 
@@ -48,10 +64,22 @@ function addPerson(){
 
 
         let newElement = document.createElement("tr");
+        newElement.id = index;
 
-        let nameElement = document.createElement("td");
+        let nameElementSection = document.createElement("td");
+
+        let nameElement = document.createElement("span");
+        nameElement.id = "nameElement" + index;
         nameElement.innerText = newPerson.name;
-        newElement.appendChild( nameElement );
+        nameElementSection.appendChild( nameElement );
+
+        let nameElementUpdate = document.createElement("Input");
+        nameElementUpdate.id = "nameElementUpdate" + index;
+        nameElementUpdate.value = newPerson.name;
+        nameElementUpdate.style.visibility = "hidden";
+        nameElementSection.appendChild( nameElementUpdate );
+
+        newElement.appendChild( nameElementSection );
 
         let ageElement = document.createElement("td");
         ageElement.innerText = newPerson.age();
@@ -60,21 +88,51 @@ function addPerson(){
         let buttonSection = document.createElement("td");
 
         let updateButton = document.createElement("button");
+        updateButton.id = "updateButton" + index;
+        updateButton.index = index;
         updateButton.innerText = "Modifier";
         updateButton.className = "btn btn-primary";
+        updateButton.addEventListener("click", function( ) {
+
+            if(isEditing) {
+
+                document.getElementById("nameElement" + this.index).innerText = document.getElementById("nameElementUpdate" + this.index).value;
+                //document.getElementById("ageElement" + this.index).value = document.getElementById("ageElementUpdate" + this.index).value;
+
+                isEditing = false;
+            } else {
+
+                document.getElementById("nameElementUpdate" + this.index).value = document.getElementById("nameElement" + this.index).innerText;
+                //document.getElementById("ageElementUpdate" + this.index).value = document.getElementById("ageElement" + this.index).value;
+
+                isEditing = true;
+            }
+
+            updateRow( this.index );
+
+        });
         buttonSection.appendChild(updateButton);
 
         let deleteButton = document.createElement("button");
+        deleteButton.id = "deleteButton" + index;
+        deleteButton.index = index;
         deleteButton.innerText = "Supprimer";
         deleteButton.className = "btn btn-outline-danger ml-2";
         deleteButton.addEventListener("click", function() {
-            personTableBody.removeChild(newElement);
+            if(isEditing) {
+                isEditing = false;
+                updateRow( this.index );
+            } else {
+                personTableBody.removeChild(newElement);
+            }
         });
         buttonSection.appendChild(deleteButton);
 
         newElement.appendChild(buttonSection);
 
         personTableBody.appendChild(newElement);
+
+        index++;
 
         init();
 
@@ -84,30 +142,4 @@ function addPerson(){
         nameInput.classList.add("is-invalid");
         console.log( nameInput.classList );
     }
-
-
-}
-
-
-
-
-function test() {
-
-    var name = "James";
-
-    if(1===1) {
-        let name2 = "Tomas";``
-        name = "af"
-    }
-
-
-    name2 = "test";
-
-    for (let d = 0; i < 90 ; i++) {
-
-    }
-
-    console.log(i);
-
-
 }
