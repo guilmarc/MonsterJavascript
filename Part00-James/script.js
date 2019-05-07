@@ -22,14 +22,14 @@ var birthYearSelect = document.getElementById("birthYearSelect");
 var personTableBody = document.getElementById("personTableBody");
 
 
-(function init(){
+function init(){
 
     nameInput.classList.remove("is-invalid");
     nameInput.value = "";
     birthYearSelect.selectedIndex = 20;;
 
-})();
-
+};
+init();
 
 function addPerson(){
 
@@ -66,7 +66,10 @@ function addPerson(){
 
         let deleteButton = document.createElement("button");
         deleteButton.innerText = "Supprimer";
-        deleteButton.className = "btn btn-outline-danger";
+        deleteButton.className = "btn btn-outline-danger ml-2";
+        deleteButton.addEventListener("click", function() {
+            personTableBody.removeChild(newElement);
+        });
         buttonSection.appendChild(deleteButton);
 
         newElement.appendChild(buttonSection);
@@ -77,10 +80,8 @@ function addPerson(){
 
         console.log(newPerson.age());
     } else {
-        //alert("Le nom est obligatoire");
 
         nameInput.classList.add("is-invalid");
-
         console.log( nameInput.classList );
     }
 
