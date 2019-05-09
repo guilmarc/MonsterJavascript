@@ -97,14 +97,10 @@ function addPerson(){
             if(isEditing) {
 
                 document.getElementById("nameElement" + this.index).innerText = document.getElementById("nameElementUpdate" + this.index).value;
-                //document.getElementById("ageElement" + this.index).value = document.getElementById("ageElementUpdate" + this.index).value;
-
                 isEditing = false;
             } else {
 
                 document.getElementById("nameElementUpdate" + this.index).value = document.getElementById("nameElement" + this.index).innerText;
-                //document.getElementById("ageElementUpdate" + this.index).value = document.getElementById("ageElement" + this.index).value;
-
                 isEditing = true;
             }
 
