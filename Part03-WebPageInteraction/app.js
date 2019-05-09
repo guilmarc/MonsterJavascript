@@ -49,7 +49,69 @@ function session54(){
     } );
 }
 
-session55();
 function session55(){
+
+    //Children retourne un HTMLCollection
+    const e = document.querySelector("div.first");
+    for (let i = 0; i < e.children.length; i++) {
+        console.log( e.children[i].textContent );
+        console.log( e.children[i] );
+    }
+    //ChildNodes retourne un NodeList
+    for (let i = 0; i < e.childNodes.length; i++) {
+        console.log( e.childNodes[i].textContent );
+        console.log( e.childNodes[i] );
+    }
+    //Les Nodes incluent les attributes et section de texte
+
+
+    console.log( e.parentElement );     //Retourne l'élément HTML parent
+    console.log( e.parentNode );        //Retourne le NODE parent (peut être du TextNode
+
+    console.log( e.nextElementSibling ); //Element
+    console.log( e.nextSibling );        //Node
+
+    console.log( e.previousElementSibling ); //Element
+    console.log( e.previousSibling );        //Node
+
+}
+
+
+function session57(){
+    const div = document.createElement("div");
+    div.style.background = "blue";
+    div.id = "newDiv";
+    const text = document.createTextNode("Hello World");
+    div.appendChild(text);
+    //Nécessite deux Element (pas de ID)
+    document.body.insertBefore( div,document.getElementById("myID") );
+
+}
+
+function session58(){
+    //On alerte si on clique sur le div "myID"
+    const div = document.getElementById("myID");
+    div.addEventListener("click", ()=>{ alert("Clicked") });
+
+    //On toggle en goule le point du li
+    let nodes = document.querySelectorAll("li");
+    nodes.forEach((n, i)=>{
+        n.style.padding = "10px";
+        n.style.margin = "5px";
+        n.style.background = i % 2 ? "#fff517" : "#fff980";
+        n.addEventListener("click", ()=>{
+            n.classList.toggle("red");
+        });
+    });
+
+}
+
+session60()
+function session60(){
+    let button = document.getElementById("addButton");
+    let input = document.getElementById("itemInput");
+    let list = document.querySelector("ul");
+
+
 
 }
