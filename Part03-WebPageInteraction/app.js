@@ -106,12 +106,50 @@ function session58(){
 
 }
 
-session60()
 function session60(){
     let button = document.getElementById("addButton");
     let input = document.getElementById("itemInput");
     let list = document.querySelector("ul");
 
+    button.addEventListener( "click", (x) => {
+        if (input.value.length > 3) {
+            var e = document.createElement("li");
+            e.innerText = input.value;
+            list.appendChild(e);
+        } else {
+            alert("Trop court");
+        }
+    });
+}
 
+function session62() {
+    document.querySelectorAll( "li" ).forEach( (n, i) => {
+        n.style.border = "solid black";
+        n.style.borderWidth = "1px 3px 1px 3px"
+        n.style.display = "block";
+        n.style.padding = "30px";
+        n.innerText = "CLICK ME #" + i
+        n.addEventListener("click", (event)=> {
+            n.style.background = randomColor();
+            n.style.color = randomColor();
+        } );
 
+    } );
+}
+
+function randomColor() {
+    return "rgb(" + Math.random() * 255 + "," + Math.random() * 255 +  "," + Math.random() * 255  + ")";
+}
+
+session64();
+function session64() {
+    let e = document.createElement("div");
+    document.body.appendChild(e);
+
+    e.style.padding = "35px";
+    e.style.border = "2px solid blue";
+
+    document.addEventListener("keydown", (event)=> {
+        e.innerText += event.key;
+    });
 }
