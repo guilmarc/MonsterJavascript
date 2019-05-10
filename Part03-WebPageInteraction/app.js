@@ -183,9 +183,8 @@ function session65() {
 session66();
 function session66() {
     var list = document.querySelector("ul");
+    var li = document.querySelectorAll("li");
     var itemInput = document.getElementById("itemInput")
-
-
 
     itemInput.addEventListener( "keyup", (event) => {
         if( itemInput.value.length > 3) {
@@ -193,11 +192,33 @@ function session66() {
             if(event.keyCode === 13 ) {
                 let li = document.createElement("li");
                 li.innerText = itemInput.value;
+                li.addEventListener( "click", onClickListener(li) );
                 list.appendChild(li);
             }
         } else {
             itemInput.classList.add("danger");
         }
     });
+
+    li.forEach( (n, i) => {
+        n.recycled = false;
+        n.addEventListener( "click", onClickListener(n) );
+    });
+
+}
+
+function onClickListener(n){
+
+    if(n.recycled) {
+        n.classList.remove("recyclebin");
+        n.recycled = false;
+    } else {
+        n.classList.add("recyclebin");
+        n.recycled = true;
+    }
+
+}
+
+function session67(){
 
 }
