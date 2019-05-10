@@ -185,7 +185,7 @@ function session66() {
     var list = document.querySelector("ul");
     var itemInput = document.getElementById("itemInput")
 
-    list.forEach((n)=>n.remove());
+
 
     itemInput.addEventListener( "keyup", (event) => {
         if( itemInput.value.length > 3) {
@@ -200,7 +200,4 @@ function session66() {
         }
     });
 
-    itemInput.addEventListener( "keypress", (event) => {
-
-    });
 }
