@@ -192,33 +192,37 @@ function session66() {
             if(event.keyCode === 13 ) {
                 let li = document.createElement("li");
                 li.innerText = itemInput.value;
-                li.addEventListener( "click", onClickListener(li) );
+                li.recycled = false;
+                li.addEventListener( "click", ()=>{
+
+                    if(li.recycled) {
+                        li.classList.remove("recyclebin");
+                        li.childNodes[1].remove();
+                        li.recycled = false;
+                    } else {
+                        li.classList.add("recyclebin");
+
+                        let span = document.createElement("span");
+                        span.textContent = " X ";
+                        span.addEventListener( "click", () => {
+
+                            li.remove();
+
+                        }, true);
+
+                        li.appendChild(span);
+
+
+
+                        li.recycled = true;
+                    }
+
+                } );
+
                 list.appendChild(li);
             }
         } else {
             itemInput.classList.add("danger");
         }
     });
-
-    li.forEach( (n, i) => {
-        n.recycled = false;
-        n.addEventListener( "click", onClickListener(n) );
-    });
-
-}
-
-function onClickListener(n){
-
-    if(n.recycled) {
-        n.classList.remove("recyclebin");
-        n.recycled = false;
-    } else {
-        n.classList.add("recyclebin");
-        n.recycled = true;
-    }
-
-}
-
-function session67(){
-
 }
