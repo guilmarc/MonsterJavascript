@@ -141,7 +141,7 @@ function randomColor() {
     return "rgb(" + Math.random() * 255 + "," + Math.random() * 255 +  "," + Math.random() * 255  + ")";
 }
 
-session64();
+
 function session64() {
     let e = document.createElement("div");
     document.body.appendChild(e);
@@ -151,5 +151,56 @@ function session64() {
 
     document.addEventListener("keydown", (event)=> {
         e.innerText += event.key;
+    });
+}
+
+
+function session65() {
+    document.querySelectorAll("li").forEach((n, i)=>{
+
+        n.innerText = "Item #" + i;
+        n.style.border = "1px solid black";
+        n.style.padding = "25px";
+
+        n.addEventListener("mouseover", ()=>{
+            n.classList.add("lightgrey")
+        });
+        n.addEventListener("mouseleave", ()=>{
+            n.classList.remove("lightgrey")
+            n.classList.remove("blue")
+        });
+        n.addEventListener("mousedown", ()=>{
+            n.classList.add("blue")
+        });
+
+        n.addEventListener("mouseup", ()=>{
+            n.classList.remove("blue")
+        });
+
+    })
+}
+
+session66();
+function session66() {
+    var list = document.querySelector("ul");
+    var itemInput = document.getElementById("itemInput")
+
+    list.forEach((n)=>n.remove());
+
+    itemInput.addEventListener( "keyup", (event) => {
+        if( itemInput.value.length > 3) {
+            itemInput.classList.remove("danger");
+            if(event.keyCode === 13 ) {
+                let li = document.createElement("li");
+                li.innerText = itemInput.value;
+                list.appendChild(li);
+            }
+        } else {
+            itemInput.classList.add("danger");
+        }
+    });
+
+    itemInput.addEventListener( "keypress", (event) => {
+
     });
 }
