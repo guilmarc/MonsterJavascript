@@ -136,7 +136,7 @@ function session84b(){
     }
 }
 
-session87(); //Prototype
+ //Prototype
 function session87(){
     function Person(first, last){
         this.firstName = first;
@@ -163,12 +163,22 @@ function session88() {
     //https://www.udemy.com/javascript-course-projects/learn/v4/t/lecture/14261866?start=0
 }
 
-session89();
+session89(); //Sort une joke de Chuck Norris
 function session89(){
     let request = new XMLHttpRequest();
     const url = "https://api.chucknorris.io/jokes/random";
 
-    console.log( request );
+    request.onreadystatechange = function(){
+        if( request.readyState === 4 && request.status === 200 ) {
+            let json = JSON.parse( request.response );
+            console.log(json["value"]);
+        }
+    }
+
+    request.open("GET", url);
+    request.send();
+
+    //console.log( request["value"] );
 }
 
 
