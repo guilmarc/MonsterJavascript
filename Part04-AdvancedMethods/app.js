@@ -163,22 +163,74 @@ function session88() {
     //https://www.udemy.com/javascript-course-projects/learn/v4/t/lecture/14261866?start=0
 }
 
-session89(); //Sort une joke de Chuck Norris
+ //Sort une joke de Chuck Norris à chaque click
 function session89(){
-    let request = new XMLHttpRequest();
-    const url = "https://api.chucknorris.io/jokes/random";
 
-    request.onreadystatechange = function(){
-        if( request.readyState === 4 && request.status === 200 ) {
-            let json = JSON.parse( request.response );
-            console.log(json["value"]);
+    document.querySelector("button").addEventListener("click", ()=> {
+        let request = new XMLHttpRequest();
+        const url = "https://api.chucknorris.io/jokes/random";
+        request.open("GET", url);
+        request.send();
+
+        request.onreadystatechange = function(){
+            if( request.readyState === 4 && request.status === 200 ) {
+                let json = JSON.parse( request.response );
+                let joke = json["value"];
+                console.log(joke);
+                document.querySelector("div").innerText = joke;
+            }
         }
-    }
-
-    request.open("GET", url);
-    request.send();
-
-    //console.log( request["value"] );
+    } );
 }
 
+ //Sort une joke de Chuck Norris à chaque click "FETCH METHOD"
+function session90() {
+
+    const url = "https://api.chucknorris.io/jokes/random";
+
+    document.querySelector("button").addEventListener("click", getJoke);
+
+    function getJoke(){
+        fetch(url)
+
+        .then( function(response){
+            return response.json();
+        } , function(err) {
+            console.log(err);
+        })
+
+        .then( function(data){
+            console.log(data);
+            document.querySelector("div").innerText = data.value;
+        } )
+    }
+}
+
+session91(); //Fetch challenge
+function session91() {
+
+    const url = "https://jsonplaceholder.typicode.com/todos"
+
+    let ol = document.createElement("ol");
+    document.body.appendChild(ol);
+
+    fetch(url)
+
+    .then( function(request){
+        return request.json();
+    } )
+
+    .then( function(data) {
+
+        data.forEach( (e) => {
+            let li = document.createElement("li");
+            li.innerText = e.title;
+            li.style.color = e.completed ? "#009611" : "#bf0100";
+            ol.appendChild( li );
+        } );
+
+
+    } );
+
+}
 
