@@ -54,7 +54,7 @@ function session80(){
     console.log( end - start);
 }
 
-session81();
+
 function session81(){
     // Create a request variable and assign a new XMLHttpRequest object to it.
     let request = new XMLHttpRequest()
@@ -76,8 +76,99 @@ function session81(){
 }
 
 
-session82();
+
 function session82(){
     //Local Storage comme properties en Android !
     localStorage.setItem("key", "value");
 }
+
+function session84(){
+    const intervalID = window.setInterval(myCallback, 500, "interval method");
+    const timoutID = window.setTimeout(myCallback, 200, "Set Timeout");
+
+    function myCallback(message){
+        console.log(message);
+    }
+
+    function stopInterval(){
+        clearInterval(intervalID);
+    }
+
+    let x = 0;
+    const e = document.querySelector("div");
+    e.style.width = "100px";
+    e.style.height = "100px";
+    e.style.backgroundColor = 'red';
+
+    function step(){
+        x++;
+        e.style.transform = "translateX(" + x + "px)";
+        if(x<450){
+            window.requestAnimationFrame(step);
+        }
+    }
+    window.requestAnimationFrame(step);
+
+    document.querySelector("button").innerText = "Stop Interval";
+    document.querySelector("button").addEventListener( "click", () => {
+       stopInterval();
+    });
+
+}
+
+
+function session84b(){
+
+    var div = document.querySelector("div");
+    var count = 10;
+
+    var intervalID = window.setInterval(decrement, 1000);
+
+    function decrement(){
+
+        count--;
+
+        div.innerText = count;
+
+        if( count === 0 ) {
+            window.clearInterval( intervalID );
+        }
+    }
+}
+
+session87(); //Prototype
+function session87(){
+    function Person(first, last){
+        this.firstName = first;
+        this.lastName = last;
+    }
+
+    Person.prototype.fullName = function(){
+        return this.firstName + " " + this.lastName;
+    };
+
+    const me = new Person("Marco", "Polo");
+    console.log( me );
+    console.log( me.fullName());
+
+    //Autre exemple
+    Date.prototype.addDays = function(days){
+        return new Date(this.valueOf() + days*864e5); //864e5 Numbre de millisecondes dans une journée
+    }
+    console.log( new Date().addDays(10) );
+}
+
+ //Try N Catch
+function session88() {
+    //https://www.udemy.com/javascript-course-projects/learn/v4/t/lecture/14261866?start=0
+}
+
+session89();
+function session89(){
+    let request = new XMLHttpRequest();
+    const url = "https://api.chucknorris.io/jokes/random";
+
+    console.log( request );
+}
+
+
