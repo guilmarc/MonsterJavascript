@@ -8,6 +8,10 @@ let computerTitle = document.getElementById("computertitle");
 let computerScore = 0;
 let playerScore = 0;
 
+let computerRoll = 0;
+let playerRoll = 0;
+
+let dices = [playerDice, computerDice];
 
 playerDice.innerText = "🎲";
 computerDice.innerText = "🎲";
@@ -15,33 +19,54 @@ computerDice.innerText = "🎲";
 
 rollButton.addEventListener("click", (event) => {
 
-        rollButton.disabled = true;
-        let rebound = 15;
-        let timerId = window.setInterval( roll, 100 );
+    rollButton.disabled = true;
 
-        function roll(){
-
-            let computerRoll = randomDice();
-            let playerRoll = randomDice();
-
-            let playerUnicode = 9855 + playerRoll;
-            let computerUnicode = 9855 + computerRoll;
-            playerDice.innerHTML = "&#" + playerUnicode + ";";
-            computerDice.innerHTML = "&#" + computerUnicode + ";";
-
-            if(--rebound === 0) {
-                clearInterval(timerId);
-
-                (playerRoll > computerRoll) ? playerScore++ : computerScore++;
-
-                playerTitle.innerText = `Player score : ${playerScore}`;
-                computerTitle.innerText = `Computer score : ${computerScore}`;
-
-                rollButton.disabled = false;
-            }
-        }
+    dices.forEach( (d)=>{startRolling(d)} );
 
 });
+
+
+
+function startRolling(dice){
+    dice.strengh = random(10, 25);
+    dice.isRolling = true;
+    dice.timerId = window.setInterval( roll, 100, dice);
+}
+
+function roll(dice){
+
+    dice.roll = randomDice();
+
+    let unicode = 9855 + dice.roll;
+    dice.innerHTML = "&#" + unicode + ";";
+
+    if(--dice.strengh === 0) {
+        stopRolling(dice);
+    }
+}
+
+
+function stopRolling(dice) {
+    window.clearInterval( dice.timerId );
+    dice.isRolling = false;
+
+    if( isAnyRolling() === false) {
+        (playerRoll > computerRoll) ? playerScore++ : computerScore++;
+
+        playerTitle.innerText = `Player score : ${playerScore}`;
+        computerTitle.innerText = `Computer score : ${computerScore}`;
+
+        rollButton.disabled = false;
+    }
+}
+
+function isAnyRolling(){
+    let isRolling = false;
+    dices.forEach((d)=>{
+        if( d.isRolling ) isRolling = true;
+    });
+    return isRolling;
+}
 
 function randomDice(){
     return random(1,6);
