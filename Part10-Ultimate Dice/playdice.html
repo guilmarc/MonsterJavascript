@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Play Dice</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        .board {
+            border: 1px solid black;
+            height: 400px;
+            width: 725px;
+        }
+        #player,#computer {
+
+            display: inline-block;
+            height: 300px;
+            width: 300px;
+            border: 1px solid black;
+            margin: 25px;
+        }
+        #playerdice,#computerdice {
+            text-align: center;
+            font-size: 200px;
+        }
+        button#roll {
+            display: block;
+            padding: 5px 10px;
+            font-weight: bold;
+            width: 700px;
+            margin: 12.5px
+        }
+
+    </style>
+</head>
+<body>
+    <div class="board">
+    <div id="player">
+        <h1 id="playertitle">Player score : 0</h1>
+        <div id="playerdice"></div>
+    </div>
+    <div id="computer">
+        <h1 id="computertitle">Computer score : 0</h1>
+        <div id="computerdice"></div>
+    </div>
+        <button type=button id="roll">Roll Dice</button>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
