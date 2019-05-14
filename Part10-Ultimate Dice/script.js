@@ -16,11 +16,12 @@ let dices = [playerDice, computerDice];
 playerDice.innerText = "🎲";
 computerDice.innerText = "🎲";
 
+const REBOUND_TIMEOUT = 100;
+
 
 rollButton.addEventListener("click", (event) => {
 
     rollButton.disabled = true;
-
     dices.forEach( (d)=>{startRolling(d)} );
 
 });
@@ -30,7 +31,7 @@ rollButton.addEventListener("click", (event) => {
 function startRolling(dice){
     dice.strengh = random(10, 25);
     dice.isRolling = true;
-    dice.timerId = window.setInterval( roll, 100, dice);
+    dice.timerId = window.setInterval( roll, REBOUND_TIMEOUT, dice);
 }
 
 function roll(dice){
