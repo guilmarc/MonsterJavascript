@@ -8,9 +8,6 @@ let computerTitle = document.getElementById("computertitle");
 let computerScore = 0;
 let playerScore = 0;
 
-let computerRoll = 0;
-let playerRoll = 0;
-
 let dices = [playerDice, computerDice];
 
 playerDice.innerText = "🎲";
@@ -52,7 +49,7 @@ function stopRolling(dice) {
     dice.isRolling = false;
 
     if( isAnyRolling() === false) {
-        (playerRoll > computerRoll) ? playerScore++ : computerScore++;
+        (playerDice.roll > computerDice.roll) ? playerScore++ : computerScore++;
 
         playerTitle.innerText = `Player score : ${playerScore}`;
         computerTitle.innerText = `Computer score : ${computerScore}`;
