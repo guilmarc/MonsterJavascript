@@ -10,6 +10,7 @@ const BALL_SPEED = 4;
 let board = document.getElementById("board");
 let rect = board.getBoundingClientRect();
 let paddle = board.querySelector(".paddle");
+let ball = board.querySelector(".ball");
 
 function buildBricks(row) {
 
@@ -77,7 +78,17 @@ function update() {
     if (paddle.offsetLeft <=  rect.width - PADDLE_WIDTH && paddle.moveright) {
         paddle.style.left = paddle.offsetLeft + PADDLE_SPEED + "px";
     }
+
+
+
     window.requestAnimationFrame( update );
+}
+
+function moveBall(){
+    let position = {
+        X: ball.offsetLeft,
+        y: ball.offsetTop
+    }
 }
 
 setup();
