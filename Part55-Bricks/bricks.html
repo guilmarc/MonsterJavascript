@@ -18,15 +18,28 @@
             background-color: #1c7430;
             border: 1px solid black;
             border-radius: 5px;
-            height: 50px;
-            width: 100px;
+            height: 30px;
+            width: 80px;
         }
         .paddle {
+            position: absolute;
             background-color: #062c33;
             border-radius: 10px;
+            height: 15px;
+            width: 80px;
+            top: 90%;
+            left: 47%;
         }
         .ball{
+            position: absolute;
             background-color: #86cfda;
+            height: 25px;
+            width: 25px;;
+            border-radius: 10px;
+            background-image: url("ball.jpg");
+            background-size: cover;
+            top: 85%;
+            left: 50%;
         }
     </style>
 </head>
@@ -35,7 +48,11 @@
     <label class="display" id="lives">3</label>
     <label>Score: </label>
     <label class="display" id="score">0</label>
-    <div id="board">  </div>
+    <div id="board">
+
+        <span class="ball"></span>
+        <span class="paddle"></span>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
