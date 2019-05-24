@@ -61,7 +61,7 @@ function setup() {
         }
     } );
 
-
+    ball.orientation = [1,-4];
 
 
     window.requestAnimationFrame( update );
@@ -79,7 +79,7 @@ function update() {
         paddle.style.left = paddle.offsetLeft + PADDLE_SPEED + "px";
     }
 
-
+    moveBall();
 
     window.requestAnimationFrame( update );
 }
@@ -88,6 +88,18 @@ function moveBall(){
     let position = {
         X: ball.offsetLeft,
         y: ball.offsetTop
+    };
+
+    ball.style.left = (ball.offsetLeft + ball.orientation[0]) + "px";
+    ball.style.top = (ball.offsetTop + ball.orientation[1] + "px");
+
+    if(ball.offsetLeft <= 0 || ball.offsetLeft >= (rect.width - BALL_WIDTH) ) {
+        ball.orientation[0] *= -1;
+    }
+
+
+    if(ball.offsetTop <= 0 || ball.offsetTop >= (rect.height - BALL_WIDTH)) {
+        ball.orientation[1] *= -1;
     }
 }
 
