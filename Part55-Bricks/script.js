@@ -47,6 +47,8 @@ function setup() {
     player.score = 0;
     player.lives = 5;
 
+    ball.ismoving = false;
+
     document.addEventListener( "keydown", (event)=>{
         if( event.key === "ArrowLeft" ) {
             paddle.moveleft = true;
@@ -64,6 +66,12 @@ function setup() {
 
         if (event.key === "ArrowRight") {
             paddle.moveright = false;
+        }
+    } );
+
+    document.addEventListener( "keypress", (event)=>{
+        if( event.key === " " ) {
+            ball.ismoving = true;
         }
     } );
 
@@ -87,7 +95,7 @@ function update() {
 
 
 
-    moveBall();
+    if (ball.ismoving) moveBall();
 
     updateScore();
 
@@ -116,12 +124,24 @@ function moveBall(){
     if(ball.offsetTop <= 0 || ball.offsetTop >= (rect.height - BALL_WIDTH)) {
         ball.orientation[1] *= -1;
         player.lives -= 1;
+        ball.ismoving = false;
+
+        ball.style.left = paddle.offsetLeft + ((paddle.offsetWidth - ball.offsetWidth) / 2) + "px";
+        ball.style.top = paddle.offsetTop - ball.offsetHeight + "px";
     }
 
 
 
     if(isTouching( ball, paddle )) {
         console.log("isTouching Paddle ");
+
+
+
+        let hitposition = (ball.offsetLeft + (ball.offsetWidth / 2));
+        let hitpaddle = paddle.offsetLeft + (paddle.offsetWidth / 2) - hitposition;
+
+        console.log(hitposition);
+
         ball.orientation[1] *= -1;
 
     }
@@ -147,7 +167,7 @@ function gameover() {
     let intervalId = window.setInterval( ()=>{
 
         // while( bricks[i] === undefined ) {
-        //     i++;
+        //      i++;
         // }
 
         if( i >= bricks.length ) {
