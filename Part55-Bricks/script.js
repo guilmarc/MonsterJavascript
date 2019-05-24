@@ -159,7 +159,7 @@ function gameover() {
 
 
 
-    }, 100 );
+    }, 30 );
 }
 
 setup();
