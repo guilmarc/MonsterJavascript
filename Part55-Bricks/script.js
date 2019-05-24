@@ -13,6 +13,7 @@ let paddle = board.querySelector(".paddle");
 let ball = board.querySelector(".ball");
 let bricks = [];
 let player = {lives:5, score:0};
+let bonus = [];
 
 function buildBricks(row) {
 
@@ -71,6 +72,7 @@ function setup() {
 
     document.addEventListener( "keypress", (event)=>{
         if( event.key === " " ) {
+            ball.orientation = getOrientation(ball, paddle);
             ball.ismoving = true;
         }
     } );
@@ -86,12 +88,24 @@ function update() {
     //let paddleCurrentOffset = paddle.offsetLeft;
 
     if (paddle.offsetLeft >= 0 && paddle.moveleft) {
-        paddle.style.left = paddle.offsetLeft - PADDLE_SPEED + "px";
+
+        if(ball.ismoving) {
+            paddle.style.left = paddle.offsetLeft - PADDLE_SPEED + "px";
+        } else {
+            paddle.style.left =  Math.max(paddle.offsetLeft - PADDLE_SPEED, ball.offsetLeft + ball.offsetWidth - paddle.offsetWidth)  + "px"
+        }
     }
 
+
+
     if (paddle.offsetLeft <=  rect.width - PADDLE_WIDTH && paddle.moveright) {
-        paddle.style.left = paddle.offsetLeft + PADDLE_SPEED + "px";
+        if(ball.ismoving) {
+            paddle.style.left = paddle.offsetLeft + PADDLE_SPEED + "px";
+        } else {
+            paddle.style.left = Math.min( paddle.offsetLeft + PADDLE_SPEED, ball.offsetLeft ) + "px";
+        }
     }
+
 
 
 
@@ -118,10 +132,14 @@ function moveBall(){
     ball.style.top = (ball.offsetTop + ball.orientation[1] + "px");
 
     if(ball.offsetLeft <= 0 || ball.offsetLeft >= (rect.width - BALL_WIDTH) ) {
-        ball.orientation[0] *= -1;
+         ball.orientation[0] *= -1;
     }
 
-    if(ball.offsetTop <= 0 || ball.offsetTop >= (rect.height - BALL_WIDTH)) {
+    if(ball.offsetTop <= 0) {
+        ball.orientation[1] *= -1;
+    }
+
+    if(ball.offsetTop >= (rect.height - BALL_WIDTH)) {
         ball.orientation[1] *= -1;
         player.lives -= 1;
         ball.ismoving = false;
@@ -133,16 +151,18 @@ function moveBall(){
 
 
     if(isTouching( ball, paddle )) {
-        console.log("isTouching Paddle ");
 
+        ball.orientation = getOrientation(ball, paddle);
 
-
-        let hitposition = (ball.offsetLeft + (ball.offsetWidth / 2));
-        let hitpaddle = paddle.offsetLeft + (paddle.offsetWidth / 2) - hitposition;
-
-        console.log(hitposition);
-
-        ball.orientation[1] *= -1;
+        // let hitposition = (ball.offsetLeft + (ball.offsetWidth / 2));
+        // let paddlecenter = paddle.offsetLeft + (paddle.offsetWidth / 2);
+        //
+        // let orientation = (paddlecenter - hitposition) / -10 ;
+        //
+        // console.log( orientation );
+        //
+        // ball.orientation[0] = orientation;
+        // ball.orientation[1] *= -1;
 
     }
 
@@ -155,6 +175,20 @@ function moveBall(){
         }
     }
 
+}
+
+function getOrientation(ball, paddle) {
+    let hitposition = (ball.offsetLeft + (ball.offsetWidth / 2));
+    let paddlecenter = paddle.offsetLeft + (paddle.offsetWidth / 2);
+
+    let orientation = (paddlecenter - hitposition) / -10 ;
+
+    console.log( orientation );
+
+    ball.orientation[0] = orientation;
+    ball.orientation[1] *= -1;
+
+    return ball.orientation;
 }
 
 function updateScore() {
