@@ -11,10 +11,10 @@ let board = document.getElementById("board");
 let rect = board.getBoundingClientRect();
 let paddle = board.querySelector(".paddle");
 let ball = board.querySelector(".ball");
+let bricks = [];
+let player = {lives:5, score:0};
 
 function buildBricks(row) {
-
-    var bricks = [];
 
     let count = Math.floor( rect.width / BRICK_WIDTH );
     let x = (rect.width % BRICK_WIDTH) / 2;
@@ -35,11 +35,17 @@ function buildBricks(row) {
 
 
 function isTouching(e1, e2){
-
+    return e1.offsetLeft + e1.offsetWidth > e2.offsetLeft
+    && e1.offsetLeft < e2.offsetLeft + e2.offsetWidth &&
+        e1.offsetTop + e1.offsetHeight > e2.offsetTop
+        && e1.offsetTop < e2.offsetTop + e2.offsetHeight;
 }
 
 function setup() {
     buildBricks(5);
+
+    player.score = 0;
+    player.lives = 5;
 
     document.addEventListener( "keydown", (event)=>{
         if( event.key === "ArrowLeft" ) {
@@ -79,9 +85,19 @@ function update() {
         paddle.style.left = paddle.offsetLeft + PADDLE_SPEED + "px";
     }
 
+
+
     moveBall();
 
-    window.requestAnimationFrame( update );
+    updateScore();
+
+    if( player.lives > 0 ) {
+        window.requestAnimationFrame( update );
+    }
+    else{
+        gameover();
+    }
+
 }
 
 function moveBall(){
@@ -97,10 +113,53 @@ function moveBall(){
         ball.orientation[0] *= -1;
     }
 
-
     if(ball.offsetTop <= 0 || ball.offsetTop >= (rect.height - BALL_WIDTH)) {
         ball.orientation[1] *= -1;
+        player.lives -= 1;
     }
+
+
+
+    if(isTouching( ball, paddle )) {
+        console.log("isTouching Paddle ");
+        ball.orientation[1] *= -1;
+
+    }
+
+    for (let i = 0; i < bricks.length; i++) {
+        if(isTouching(ball, bricks[i])) {
+            bricks[i].remove();
+            ball.orientation[1] *= -1;
+            player.score +=10;
+            break; //Pour ne pas pouvoir briser 2 briques en un seul mouvement de pixel
+        }
+    }
+
+}
+
+function updateScore() {
+    document.getElementById("score").innerText = player.score;
+    document.getElementById("lives").innerText = player.lives;
+}
+
+function gameover() {
+    let i = 0;
+    let intervalId = window.setInterval( ()=>{
+
+        // while( bricks[i] === undefined ) {
+        //     i++;
+        // }
+
+        if( i >= bricks.length ) {
+            window.clearInterval( intervalId );
+            setup();
+        } else {
+            bricks[i++].remove();
+        }
+
+
+
+    }, 100 );
 }
 
 setup();
