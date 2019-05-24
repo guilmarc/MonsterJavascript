@@ -27,6 +27,7 @@ function buildBricks(row) {
             brick.classList.add( "brick" );
             brick.style.left = (i * BRICK_WIDTH) + x + "px" ;
             brick.style.top = (j * BRICK_HEIGHT) + TOP_SPACE + "px";
+            brick.damage = 0;
             board.appendChild(brick);
             bricks.push(brick);
         }
@@ -168,7 +169,16 @@ function moveBall(){
 
     for (let i = 0; i < bricks.length; i++) {
         if(isTouching(ball, bricks[i])) {
-            bricks[i].remove();
+
+            if( bricks[i].damage === 2 ) {
+                bricks[i].remove();
+            }
+            else{
+                bricks[i].classList.add("brick" + bricks[i].damage);
+                bricks[i].damage += 1;
+            }
+
+
             ball.orientation[1] *= -1;
             player.score +=10;
             break; //Pour ne pas pouvoir briser 2 briques en un seul mouvement de pixel
